@@ -1,0 +1,30 @@
+name: offline_reference_app
+description: Offline-first reference app (scaffold)
+publish_to: 'none'
+version: 0.0.1
+environment:
+  sdk: '>=3.9.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  isar_community: ^3.3.2
+  isar_community_flutter_libs: ^3.3.2
+  path_provider: ^2.0.0
+  path: ^1.9.0
+  flutter_map: ^3.0.0
+  ffi: ^2.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  test: ^1.16.0
+  isar_community_generator: ^3.3.2
+  build_runner: ^2.4.0
+  path_provider_platform_interface: ^2.0.0
+  plugin_platform_interface: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/data/dataset.isar

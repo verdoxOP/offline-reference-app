@@ -1,0 +1,31 @@
+# Local Flutter SDK checkout — not part of the project, do not commit.
+/flutter sdk/
+
+# Flutter / Dart build output
+app/.dart_tool/
+app/build/
+app/.flutter-plugins
+app/.flutter-plugins-dependencies
+app/.packages
+app/android/
+app/ios/
+app/linux/
+app/macos/
+app/windows/
+app/web/
+
+# Node
+pipeline/node_modules/
+pipeline/dist/
+
+# Java / Maven
+backend/target/
+
+# Isar lock files (created while a database is open)
+*.isar-lck
+
+# IDE / OS
+.idea/
+*.iml
+.DS_Store
+Thumbs.db

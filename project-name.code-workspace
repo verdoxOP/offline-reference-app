@@ -1,0 +1,11 @@
+{
+  "folders": [
+    { "path": "app" },
+    { "path": "backend" },
+    { "path": "pipeline" },
+    { "path": "docs" }
+  ],
+  "settings": {
+    "java.compile.nullAnalysis.mode": "disabled"
+  }
+}
