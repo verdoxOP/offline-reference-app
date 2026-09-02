@@ -48,19 +48,64 @@ class AppDatabase {
   Future<List<Record>> getAllRecords({required String language}) =>
       isar.records.filter().languageEqualTo(language).findAll();
 
-  /// Matches records in [language] whose title or category contains [query]
-  /// (case-insensitive). Only the matching rows are read — never the whole
-  /// dataset, and never anything's compressedPayload.
-  Future<List<Record>> searchRecords(String query, {required String language}) {
-    if (query.isEmpty) return getAllRecords(language: language);
+  /// Row count for the category chips — an indexed count, not a full read,
+  /// so it stays cheap regardless of dataset size.
+  Future<int> countRecords({required String language, String? category}) {
+    if (category == null) {
+      return isar.records.filter().languageEqualTo(language).count();
+    }
     return isar.records
         .filter()
         .languageEqualTo(language)
         .and()
+        .categoryEqualTo(category)
+        .count();
+  }
+
+  /// Combines the category filter chips with the search box: [category] is
+  /// the exact category string for the active [language] (see
+  /// `categoryLabelForKey`), or `null` for "all categories". Written as
+  /// independent query chains per branch (rather than reassigning a shared
+  /// builder) since Isar's QueryBuilder carries its filter-group state in
+  /// its generic type, which a conditionally-built chain can't express.
+  Future<List<Record>> filterRecords(
+    String query, {
+    required String language,
+    String? category,
+  }) {
+    final trimmed = query.trim();
+    if (category == null && trimmed.isEmpty) {
+      return isar.records.filter().languageEqualTo(language).findAll();
+    }
+    if (category == null) {
+      return isar.records
+          .filter()
+          .languageEqualTo(language)
+          .and()
+          .group((q) => q
+              .titleContains(trimmed, caseSensitive: false)
+              .or()
+              .categoryContains(trimmed, caseSensitive: false))
+          .findAll();
+    }
+    if (trimmed.isEmpty) {
+      return isar.records
+          .filter()
+          .languageEqualTo(language)
+          .and()
+          .categoryEqualTo(category)
+          .findAll();
+    }
+    return isar.records
+        .filter()
+        .languageEqualTo(language)
+        .and()
+        .categoryEqualTo(category)
+        .and()
         .group((q) => q
-            .titleContains(query, caseSensitive: false)
+            .titleContains(trimmed, caseSensitive: false)
             .or()
-            .categoryContains(query, caseSensitive: false))
+            .categoryContains(trimmed, caseSensitive: false))
         .findAll();
   }
 }

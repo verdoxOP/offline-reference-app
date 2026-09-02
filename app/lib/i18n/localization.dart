@@ -24,9 +24,37 @@ class Strings {
 
   static const Map<String, Map<String, String>> _values = {
     'appTitle': {'nl': 'Offline Naslagwerk', 'en': 'Offline Reference'},
+    'brandLine': {'nl': 'Digitaal Noodpakket', 'en': 'Digital Emergency Kit'},
     'searchHint': {'nl': 'Zoek titel of categorie', 'en': 'Search title or category'},
     'noResults': {'nl': 'Geen resultaten gevonden', 'en': 'No matching records'},
     'noDetails': {'nl': 'Geen details beschikbaar.', 'en': 'No details available.'},
+    'all': {'nl': 'Alles', 'en': 'All'},
+    'basis': {'nl': 'Basis', 'en': 'Basics'},
+    'nood': {'nl': 'Nood', 'en': 'Emergency'},
+    'kaart': {'nl': 'Kaart', 'en': 'Map'},
+    'faq': {'nl': 'FAQ', 'en': 'FAQ'},
+    'offline': {'nl': 'Volledig offline beschikbaar', 'en': 'Fully available offline'},
+    'offlineDetail': {
+      'nl': 'Dataset op het toestel, geen netwerk nodig',
+      'en': 'Dataset stored on device, no network needed',
+    },
+    'decompressing': {'nl': 'Uitpakken', 'en': 'Unpacking'},
+    'credits': {'nl': 'Bronnen en licenties', 'en': 'Credits and licenses'},
+    'emptyHint': {
+      'nl': 'Probeer een andere zoekterm of categorie.',
+      'en': 'Try another search term or category.',
+    },
+    'call112': {'nl': 'Bel 112', 'en': 'Call 112'},
+    'back': {'nl': 'Terug', 'en': 'Back'},
+    'clear': {'nl': 'Wissen', 'en': 'Clear'},
+    'creditsIntro': {
+      'nl':
+          'Alle afbeeldingen komen van Wikimedia Commons en zijn openlijk gelicentieerd, '
+          'verkleind en opnieuw gecodeerd voor de app.',
+      'en':
+          'All images come from Wikimedia Commons, openly licensed, resized and '
+          're-encoded for the app.',
+    },
   };
 
   static String of(AppLanguage language, String key) => _values[key]![language.code]!;
