@@ -39,6 +39,10 @@ class Strings {
       'en': 'Dataset stored on device, no network needed',
     },
     'decompressing': {'nl': 'Uitpakken', 'en': 'Unpacking'},
+    'decompressError': {
+      'nl': 'Kon de inhoud niet uitpakken.',
+      'en': "Couldn't unpack the content.",
+    },
     'credits': {'nl': 'Bronnen en licenties', 'en': 'Credits and licenses'},
     'emptyHint': {
       'nl': 'Probeer een andere zoekterm of categorie.',

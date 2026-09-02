@@ -15,6 +15,7 @@ import 'widgets/category_badge.dart';
 import 'widgets/dnp_app_bar.dart';
 import 'widgets/dnp_button.dart';
 import 'widgets/dnp_spinner.dart';
+import 'widgets/empty_state.dart';
 import 'widgets/media_header.dart';
 
 class RecordDetailScreen extends StatefulWidget {
@@ -101,6 +102,15 @@ class _RecordDetailScreenState extends State<RecordDetailScreen> {
                     FutureBuilder<String?>(
                       future: _descriptionFuture,
                       builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          // Surface the failure instead of leaving the spinner
+                          // stuck forever — e.g. a platform missing the
+                          // system zstd library decompression depends on.
+                          return EmptyState(
+                            icon: Icons.error_outline,
+                            title: Strings.of(widget.language, 'decompressError'),
+                          );
+                        }
                         if (!snapshot.hasData) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: DnpSpace.s6),
