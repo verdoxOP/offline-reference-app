@@ -45,18 +45,22 @@ class AppDatabase {
     );
   }
 
-  Future<List<Record>> getAllRecords() => isar.records.where().findAll();
+  Future<List<Record>> getAllRecords({required String language}) =>
+      isar.records.filter().languageEqualTo(language).findAll();
 
-  /// Matches records whose title or category contains [query]
+  /// Matches records in [language] whose title or category contains [query]
   /// (case-insensitive). Only the matching rows are read — never the whole
   /// dataset, and never anything's compressedPayload.
-  Future<List<Record>> searchRecords(String query) {
-    if (query.isEmpty) return getAllRecords();
+  Future<List<Record>> searchRecords(String query, {required String language}) {
+    if (query.isEmpty) return getAllRecords(language: language);
     return isar.records
         .filter()
-        .titleContains(query, caseSensitive: false)
-        .or()
-        .categoryContains(query, caseSensitive: false)
+        .languageEqualTo(language)
+        .and()
+        .group((q) => q
+            .titleContains(query, caseSensitive: false)
+            .or()
+            .categoryContains(query, caseSensitive: false))
         .findAll();
   }
 }

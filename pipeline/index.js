@@ -20,7 +20,7 @@ async function main() {
   });
   await client.connect();
 
-  const records = (await client.query('SELECT id, title, category, description, lat, lng, image_urls FROM records')).rows || [];
+  const records = (await client.query('SELECT id, topic_id, language, title, category, description, lat, lng, image_urls FROM records')).rows || [];
 
   await new Promise((resolve, reject) => {
     zstd.run((zstdInstance) => {
@@ -33,6 +33,8 @@ async function main() {
         const outPath = path.join(outDir, 'records.jsonl');
         const lines = records.map(r => JSON.stringify({
           id: r.id,
+          topicId: r.topic_id,
+          language: r.language,
           title: r.title,
           category: r.category,
           lat: r.lat,

@@ -1,0 +1,160 @@
+{
+  "topics": [
+    {
+      "topicId": "water-voedsel",
+      "category": { "nl": "Basis", "en": "Basics" },
+      "title": { "nl": "Water en voedsel", "en": "Water and food" },
+      "body": {
+        "nl": "Bewaar minimaal 3 dagen drinkwater (ongeveer 3 liter per persoon per dag) en houdbare voedingsmiddelen die niet gekoeld hoeven te worden, zoals blikvoedsel, crackers en gedroogd fruit. Vervang de voorraad regelmatig vóór de houdbaarheidsdatum en bewaar alles op een koele, droge plek. Vergeet een handmatige blikopener niet.",
+        "en": "Keep at least 3 days of drinking water on hand (roughly 3 liters per person per day) and non-perishable food that doesn't need refrigeration, such as canned goods, crackers, and dried fruit. Rotate your stock before it expires and store everything in a cool, dry place. Don't forget a manual can opener."
+      }
+    },
+    {
+      "topicId": "licht-stroom",
+      "category": { "nl": "Basis", "en": "Basics" },
+      "title": { "nl": "Licht en stroom", "en": "Light and power" },
+      "body": {
+        "nl": "Zorg voor een oplaadbare of dynamo-zaklamp, extra batterijen en eventueel een powerbank om telefoons op te laden. Kaarsen zijn een risico bij gasleidingschade, gebruik bij voorkeur LED-lampen. Een klein zonnepaneel of powerstation kan bij langere stroomuitval uitkomst bieden.",
+        "en": "Keep a rechargeable or hand-crank flashlight, spare batteries, and a power bank for charging phones. Candles are a risk if there's gas line damage, so prefer LED lights. A small solar panel or power station can help during longer outages."
+      }
+    },
+    {
+      "topicId": "communicatie",
+      "category": { "nl": "Basis", "en": "Basics" },
+      "title": { "nl": "Communicatie", "en": "Communication" },
+      "body": {
+        "nl": "Spreek met je huisgenoten een vast verzamelpunt en contactpersoon buiten de regio af, voor het geval jullie elkaar niet direct kunnen bereiken. Een batterij- of dynamoradio houdt je op de hoogte als internet en mobiele netwerken uitvallen. Schrijf belangrijke telefoonnummers ook op papier.",
+        "en": "Agree on a fixed meeting point and an out-of-area contact person with your household in case you can't reach each other directly. A battery- or crank-powered radio keeps you informed if the internet and mobile networks go down. Write important phone numbers on paper too."
+      }
+    },
+    {
+      "topicId": "documenten-geld",
+      "category": { "nl": "Basis", "en": "Basics" },
+      "title": { "nl": "Documenten en geld", "en": "Documents and money" },
+      "body": {
+        "nl": "Bewaar kopieën van belangrijke documenten (identiteitsbewijs, verzekeringen, medische gegevens) in een waterdichte map en digitaal op een USB-stick. Houd wat contant geld achter de hand, want bij stroomuitval werken pinautomaten en kaartbetalingen vaak niet.",
+        "en": "Keep copies of important documents (ID, insurance, medical records) in a waterproof folder and digitally on a USB drive. Keep some cash on hand, since ATMs and card payments often don't work during power outages."
+      }
+    },
+    {
+      "topicId": "noodplan",
+      "category": { "nl": "Nood", "en": "Emergency" },
+      "title": { "nl": "Noodplan", "en": "Emergency plan" },
+      "body": {
+        "nl": "Bespreek met je huisgenoten wat te doen is bij verschillende noodsituaties: brand, overstroming, stroomuitval. Wijs vluchtroutes en een veilige verzamelplek aan en oefen dit plan af en toe, zeker met kinderen.",
+        "en": "Discuss with your household what to do in different emergencies: fire, flooding, power outage. Identify escape routes and a safe meeting point, and practice the plan occasionally, especially with children."
+      }
+    },
+    {
+      "topicId": "vluchttas",
+      "category": { "nl": "Nood", "en": "Emergency" },
+      "title": { "nl": "Vluchttas", "en": "Emergency bag" },
+      "body": {
+        "nl": "Pak een tas met water, houdbaar voedsel, EHBO-kit, zaklamp, batterijen, kopieën van documenten, medicijnen en wat contant geld. Zet de tas klaar bij de uitgang zodat je binnen enkele minuten kunt vertrekken.",
+        "en": "Pack a bag with water, non-perishable food, a first-aid kit, flashlight, batteries, copies of documents, medication, and some cash. Keep the bag ready by the exit so you can leave within minutes."
+      }
+    },
+    {
+      "topicId": "gezondheid-ehbo",
+      "category": { "nl": "Nood", "en": "Emergency" },
+      "title": { "nl": "Gezondheid en EHBO", "en": "Health and first aid" },
+      "body": {
+        "nl": "Houd een EHBO-kit met pleisters, verband, desinfectiemiddel en pijnstillers binnen handbereik. Zorg dat minstens één huisgenoot de basisprincipes van eerste hulp kent, zoals wondverzorging en reanimatie.",
+        "en": "Keep a first-aid kit with plasters, bandages, disinfectant, and pain relievers within reach. Make sure at least one household member knows basic first aid, such as wound care and CPR."
+      }
+    },
+    {
+      "topicId": "nooddiensten",
+      "category": { "nl": "Nood", "en": "Emergency" },
+      "title": { "nl": "Nooddiensten", "en": "Emergency services" },
+      "body": {
+        "nl": "In Nederland bel je 112 voor politie, brandweer of ambulance bij een acute noodsituatie. Voor niet-spoedeisende politiezaken bel je 0900-8844. Sla deze nummers op en schrijf ze ook op papier voor als je telefoon niet werkt.",
+        "en": "In the Netherlands, call 112 for police, fire, or ambulance in an acute emergency. For non-urgent police matters, call 0900-8844. Save these numbers and also write them on paper in case your phone doesn't work."
+      }
+    },
+    {
+      "topicId": "noodsteunpunten",
+      "category": { "nl": "Kaart", "en": "Map" },
+      "title": { "nl": "Noodsteunpunten", "en": "Emergency support points" },
+      "body": {
+        "nl": "Noodsteunpunten zijn plekken zoals ziekenhuizen, politiebureaus en brandweerkazernes waar je tijdens een noodsituatie hulp kunt krijgen. De kaart hieronder toont de echte locaties in Tilburg: het ETZ-ziekenhuis, de politiebureaus en de brandweerkazernes.",
+        "en": "Emergency support points are places like hospitals, police stations, and fire stations where you can get help during an emergency. The map below shows the real locations in Tilburg: the ETZ hospital, police stations, and fire stations."
+      }
+    },
+    {
+      "topicId": "watertappunten",
+      "category": { "nl": "Kaart", "en": "Map" },
+      "title": { "nl": "Watertappunten", "en": "Water tap points" },
+      "body": {
+        "nl": "Watertappunten zijn openbare plekken waar je bij drinkwater kunt als de watervoorziening thuis is uitgevallen. De kaart hieronder toont de echte watertappunten in Tilburg.",
+        "en": "Water tap points are public locations where you can access drinking water if your home water supply fails. The map below shows the real water tap points in Tilburg."
+      }
+    },
+    {
+      "topicId": "verzamelpunten",
+      "category": { "nl": "Kaart", "en": "Map" },
+      "title": { "nl": "Verzamelpunten", "en": "Assembly points" },
+      "body": {
+        "nl": "Verzamelpunten zijn vooraf aangewezen, veilige plekken waar mensen samenkomen na een evacuatie, bijvoorbeeld bij grootschalige branden of overstromingen. Lokale overheden wijzen deze punten meestal aan; ze verschijnen op de kaart zodra deze data beschikbaar is.",
+        "en": "Assembly points are pre-designated, safe locations where people gather after an evacuation, for example during large-scale fires or floods. Local authorities usually designate these points; they'll appear on the map once this data is available."
+      }
+    },
+    {
+      "topicId": "faq-112-bellen",
+      "category": { "nl": "FAQ", "en": "FAQ" },
+      "title": { "nl": "Wanneer 112 bellen?", "en": "When to call 112?" },
+      "body": {
+        "nl": "Bel 112 alleen bij een acute noodsituatie waarbij spoed nodig is: levensgevaar, een misdrijf dat nu gebeurt, of brand. Is het niet spoedeisend, gebruik dan het reguliere nummer van de betreffende dienst.",
+        "en": "Only call 112 in an acute emergency requiring immediate response: danger to life, a crime in progress, or fire. If it's not urgent, use the relevant service's regular number instead."
+      }
+    },
+    {
+      "topicId": "faq-eten-bewaren",
+      "category": { "nl": "FAQ", "en": "FAQ" },
+      "title": { "nl": "Hoe bewaar ik mijn eten het best?", "en": "How do I best store my food?" },
+      "body": {
+        "nl": "Bewaar voedsel op een koele, droge en donkere plek, uit de buurt van directe warmtebronnen. Gebruik luchtdichte containers om vocht en ongedierte te weren, en roteer je voorraad zodat oudere producten het eerst worden gebruikt.",
+        "en": "Store food in a cool, dry, dark place away from direct heat sources. Use airtight containers to keep out moisture and pests, and rotate your stock so older items get used first."
+      }
+    },
+    {
+      "topicId": "faq-water-filteren",
+      "category": { "nl": "FAQ", "en": "FAQ" },
+      "title": { "nl": "Hoe filter ik water?", "en": "How do I filter water?" },
+      "body": {
+        "nl": "Laat vervuild water eerst bezinken en giet het voorzichtig af. Filter het daarna door een schone doek of koffiefilter om deeltjes te verwijderen, en kook het minstens één minuut om ziekteverwekkers te doden. Een waterfilter of purificatietabletten zijn een goed alternatief.",
+        "en": "Let dirty water settle first and carefully pour off the clear part. Then filter it through a clean cloth or coffee filter to remove particles, and boil it for at least one minute to kill pathogens. A water filter or purification tablets are a good alternative."
+      }
+    },
+    {
+      "topicId": "faq-112-onbereikbaar",
+      "category": { "nl": "FAQ", "en": "FAQ" },
+      "title": { "nl": "Wat te doen als 112 niet bereikbaar is?", "en": "What to do if 112 is unreachable?" },
+      "body": {
+        "nl": "Probeer het via een ander netwerk of toestel, bijvoorbeeld sms (dat vaak nog werkt als bellen niet lukt) of vraag een buur om hulp. Ga zo nodig fysiek naar het dichtstbijzijnde politiebureau, ziekenhuis of brandweerkazerne.",
+        "en": "Try a different network or device, for example SMS (which often still works when calls don't go through), or ask a neighbor for help. If needed, go in person to the nearest police station, hospital, or fire station."
+      }
+    },
+    {
+      "topicId": "faq-regenwater",
+      "category": { "nl": "FAQ", "en": "FAQ" },
+      "title": { "nl": "Is regenwater drinkbaar?", "en": "Is rainwater drinkable?" },
+      "body": {
+        "nl": "Vers regenwater dat rechtstreeks is opgevangen (niet van een dak met chemicaliën of vervuiling) is meestal relatief schoon, maar niet gegarandeerd veilig. Kook het altijd minstens één minuut, of filter en zuiver het voordat je het drinkt.",
+        "en": "Fresh rainwater collected directly (not from a roof with chemicals or pollution) is usually relatively clean, but not guaranteed safe. Always boil it for at least one minute, or filter and purify it before drinking."
+      }
+    },
+    {
+      "topicId": "faq-info-zonder-internet",
+      "category": { "nl": "FAQ", "en": "FAQ" },
+      "title": {
+        "nl": "Hoe weet ik wat er aan de hand is zonder internet?",
+        "en": "How do I know what's happening without internet?"
+      },
+      "body": {
+        "nl": "Een batterij- of dynamoradio ontvangt lokale nieuwsuitzendingen ook zonder internet of stroom. NL-Alert werkt via de mobiele netwerkmast (cell broadcast) en kan berichten ontvangen ook als mobiel internet uitvalt. Buren en lokale gemeenschapsgroepen zijn ook een goede informatiebron.",
+        "en": "A battery- or crank-powered radio can receive local news broadcasts even without internet or power. NL-Alert works via the mobile network's cell broadcast and can receive messages even if mobile internet is down. Neighbors and local community groups are also a good source of information."
+      }
+    }
+  ]
+}

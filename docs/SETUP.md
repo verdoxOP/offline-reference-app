@@ -24,6 +24,17 @@ node index.js
 # Writes pipeline/dist/bundle-v0.0.1/records.jsonl
 ```
 
+The authoring backend isn't populated with real content yet. Until it is, skip
+steps 1–3 and generate `records.jsonl` from the checked-in bilingual seed
+content instead:
+
+```bash
+cd app
+flutter pub get
+dart run tool/generate_seed_dataset.dart
+# Reads pipeline/seed/content.json, writes pipeline/dist/bundle-v0.0.1/records.jsonl
+```
+
 4) Import the dataset into Isar (build-time only — this is never run by the shipped app)
 
 ```bash

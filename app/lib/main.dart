@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'data/db.dart';
+import 'i18n/localization.dart';
 import 'ui/home.dart';
 
 void main() async {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Offline Reference',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomeScreen(db: db),
+      home: HomeScreen(db: db, language: AppLanguageController(AppLanguage.nl)),
     );
   }
 }

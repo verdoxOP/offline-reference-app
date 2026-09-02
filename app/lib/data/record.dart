@@ -6,6 +6,14 @@ part 'record.g.dart';
 class Record {
   Id id = Isar.autoIncrement;
 
+  /// Links the nl/en translations of the same topic together.
+  @Index()
+  String? topicId;
+
+  /// 'nl' or 'en'.
+  @Index()
+  String? language;
+
   @Index()
   String? title;
 

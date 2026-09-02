@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import '../data/db.dart';
+import '../i18n/localization.dart';
+import 'category_icons.dart';
 import 'record_detail.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.db});
+  const HomeScreen({super.key, required this.db, required this.language});
 
   final AppDatabase db;
+  final AppLanguageController language;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -18,25 +21,47 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _recordsFuture = widget.db.getAllRecords();
+    widget.language.addListener(_onLanguageChanged);
+    _recordsFuture = widget.db.getAllRecords(language: widget.language.value.code);
   }
 
   @override
   void dispose() {
+    widget.language.removeListener(_onLanguageChanged);
     _searchController.dispose();
     super.dispose();
   }
 
-  void _onSearchChanged(String query) {
+  void _onLanguageChanged() => _runSearch(_searchController.text);
+
+  void _onSearchChanged(String query) => _runSearch(query);
+
+  void _runSearch(String query) {
     setState(() {
-      _recordsFuture = widget.db.searchRecords(query);
+      _recordsFuture = widget.db.searchRecords(query, language: widget.language.value.code);
     });
+  }
+
+  void _toggleLanguage() {
+    widget.language.value = widget.language.value.other;
   }
 
   @override
   Widget build(BuildContext context) {
+    final lang = widget.language.value;
     return Scaffold(
-      appBar: AppBar(title: const Text('Offline Reference')),
+      appBar: AppBar(
+        title: Text(Strings.of(lang, 'appTitle')),
+        actions: [
+          TextButton(
+            onPressed: _toggleLanguage,
+            child: Text(
+              lang == AppLanguage.nl ? 'NL' : 'EN',
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Padding(
@@ -44,10 +69,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: TextField(
               controller: _searchController,
               onChanged: _onSearchChanged,
-              decoration: const InputDecoration(
-                hintText: 'Search title or category',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                hintText: Strings.of(lang, 'searchHint'),
+                prefixIcon: const Icon(Icons.search),
+                border: const OutlineInputBorder(),
               ),
             ),
           ),
@@ -60,17 +85,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
                 final records = snapshot.data!;
                 if (records.isEmpty) {
-                  return const Center(child: Text('No matching records'));
+                  return Center(child: Text(Strings.of(lang, 'noResults')));
                 }
                 return ListView.builder(
                   itemCount: records.length,
                   itemBuilder: (context, i) {
                     final r = records[i];
                     return ListTile(
+                      leading: Icon(iconForCategory(r.category)),
                       title: Text(r.title ?? 'No title'),
                       subtitle: Text(r.category ?? ''),
                       onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => RecordDetailScreen(record: r)),
+                        MaterialPageRoute(
+                          builder: (_) => RecordDetailScreen(record: r, language: lang),
+                        ),
                       ),
                     );
                   },

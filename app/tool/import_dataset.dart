@@ -57,6 +57,8 @@ Record _recordFromJsonLine(String line) {
   final json = jsonDecode(line) as Map<String, dynamic>;
   return Record()
     ..id = json['id'] as int
+    ..topicId = json['topicId'] as String?
+    ..language = json['language'] as String?
     ..title = json['title'] as String?
     ..category = json['category'] as String?
     ..lat = (json['lat'] as num?)?.toDouble()

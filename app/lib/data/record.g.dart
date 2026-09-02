@@ -32,9 +32,15 @@ const RecordSchema = CollectionSchema(
       name: r'imageUrls',
       type: IsarType.stringList,
     ),
-    r'lat': PropertySchema(id: 3, name: r'lat', type: IsarType.double),
-    r'lng': PropertySchema(id: 4, name: r'lng', type: IsarType.double),
-    r'title': PropertySchema(id: 5, name: r'title', type: IsarType.string),
+    r'language': PropertySchema(
+      id: 3,
+      name: r'language',
+      type: IsarType.string,
+    ),
+    r'lat': PropertySchema(id: 4, name: r'lat', type: IsarType.double),
+    r'lng': PropertySchema(id: 5, name: r'lng', type: IsarType.double),
+    r'title': PropertySchema(id: 6, name: r'title', type: IsarType.string),
+    r'topicId': PropertySchema(id: 7, name: r'topicId', type: IsarType.string),
   },
 
   estimateSize: _recordEstimateSize,
@@ -43,6 +49,32 @@ const RecordSchema = CollectionSchema(
   deserializeProp: _recordDeserializeProp,
   idName: r'id',
   indexes: {
+    r'topicId': IndexSchema(
+      id: 3718206658163357569,
+      name: r'topicId',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'topicId',
+          type: IndexType.hash,
+          caseSensitive: true,
+        ),
+      ],
+    ),
+    r'language': IndexSchema(
+      id: -1161120539689460177,
+      name: r'language',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'language',
+          type: IndexType.hash,
+          caseSensitive: true,
+        ),
+      ],
+    ),
     r'title': IndexSchema(
       id: -7636685945352118059,
       name: r'title',
@@ -110,7 +142,19 @@ int _recordEstimateSize(
     }
   }
   {
+    final value = object.language;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
     final value = object.title;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.topicId;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -127,9 +171,11 @@ void _recordSerialize(
   writer.writeString(offsets[0], object.category);
   writer.writeByteList(offsets[1], object.compressedPayload);
   writer.writeStringList(offsets[2], object.imageUrls);
-  writer.writeDouble(offsets[3], object.lat);
-  writer.writeDouble(offsets[4], object.lng);
-  writer.writeString(offsets[5], object.title);
+  writer.writeString(offsets[3], object.language);
+  writer.writeDouble(offsets[4], object.lat);
+  writer.writeDouble(offsets[5], object.lng);
+  writer.writeString(offsets[6], object.title);
+  writer.writeString(offsets[7], object.topicId);
 }
 
 Record _recordDeserialize(
@@ -143,9 +189,11 @@ Record _recordDeserialize(
   object.compressedPayload = reader.readByteList(offsets[1]);
   object.id = id;
   object.imageUrls = reader.readStringList(offsets[2]);
-  object.lat = reader.readDoubleOrNull(offsets[3]);
-  object.lng = reader.readDoubleOrNull(offsets[4]);
-  object.title = reader.readStringOrNull(offsets[5]);
+  object.language = reader.readStringOrNull(offsets[3]);
+  object.lat = reader.readDoubleOrNull(offsets[4]);
+  object.lng = reader.readDoubleOrNull(offsets[5]);
+  object.title = reader.readStringOrNull(offsets[6]);
+  object.topicId = reader.readStringOrNull(offsets[7]);
   return object;
 }
 
@@ -163,10 +211,14 @@ P _recordDeserializeProp<P>(
     case 2:
       return (reader.readStringList(offset)) as P;
     case 3:
-      return (reader.readDoubleOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 4:
       return (reader.readDoubleOrNull(offset)) as P;
     case 5:
+      return (reader.readDoubleOrNull(offset)) as P;
+    case 6:
+      return (reader.readStringOrNull(offset)) as P;
+    case 7:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -259,6 +311,156 @@ extension RecordQueryWhere on QueryBuilder<Record, Record, QWhereClause> {
           includeUpper: includeUpper,
         ),
       );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterWhereClause> topicIdIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(indexName: r'topicId', value: [null]),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterWhereClause> topicIdIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'topicId',
+          lower: [null],
+          includeLower: false,
+          upper: [],
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterWhereClause> topicIdEqualTo(
+    String? topicId,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(indexName: r'topicId', value: [topicId]),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterWhereClause> topicIdNotEqualTo(
+    String? topicId,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'topicId',
+                lower: [],
+                upper: [topicId],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'topicId',
+                lower: [topicId],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'topicId',
+                lower: [topicId],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'topicId',
+                lower: [],
+                upper: [topicId],
+                includeUpper: false,
+              ),
+            );
+      }
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterWhereClause> languageIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(indexName: r'language', value: [null]),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterWhereClause> languageIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.between(
+          indexName: r'language',
+          lower: [null],
+          includeLower: false,
+          upper: [],
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterWhereClause> languageEqualTo(
+    String? language,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        IndexWhereClause.equalTo(indexName: r'language', value: [language]),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterWhereClause> languageNotEqualTo(
+    String? language,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'language',
+                lower: [],
+                upper: [language],
+                includeUpper: false,
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'language',
+                lower: [language],
+                includeLower: false,
+                upper: [],
+              ),
+            );
+      } else {
+        return query
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'language',
+                lower: [language],
+                includeLower: false,
+                upper: [],
+              ),
+            )
+            .addWhereClause(
+              IndexWhereClause.between(
+                indexName: r'language',
+                lower: [],
+                upper: [language],
+                includeUpper: false,
+              ),
+            );
+      }
     });
   }
 
@@ -979,6 +1181,168 @@ extension RecordQueryFilter on QueryBuilder<Record, Record, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'language'),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'language'),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'language',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageContains(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'language',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageMatches(
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'language',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'language', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> languageIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'language', value: ''),
+      );
+    });
+  }
+
   QueryBuilder<Record, Record, QAfterFilterCondition> latIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
@@ -1320,6 +1684,168 @@ extension RecordQueryFilter on QueryBuilder<Record, Record, QFilterCondition> {
       );
     });
   }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'topicId'),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'topicId'),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'topicId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'topicId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'topicId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'topicId',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'topicId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'topicId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdContains(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'topicId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdMatches(
+    String pattern, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'topicId',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'topicId', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterFilterCondition> topicIdIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'topicId', value: ''),
+      );
+    });
+  }
 }
 
 extension RecordQueryObject on QueryBuilder<Record, Record, QFilterCondition> {}
@@ -1336,6 +1862,18 @@ extension RecordQuerySortBy on QueryBuilder<Record, Record, QSortBy> {
   QueryBuilder<Record, Record, QAfterSortBy> sortByCategoryDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'category', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterSortBy> sortByLanguage() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'language', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterSortBy> sortByLanguageDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'language', Sort.desc);
     });
   }
 
@@ -1374,6 +1912,18 @@ extension RecordQuerySortBy on QueryBuilder<Record, Record, QSortBy> {
       return query.addSortBy(r'title', Sort.desc);
     });
   }
+
+  QueryBuilder<Record, Record, QAfterSortBy> sortByTopicId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'topicId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterSortBy> sortByTopicIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'topicId', Sort.desc);
+    });
+  }
 }
 
 extension RecordQuerySortThenBy on QueryBuilder<Record, Record, QSortThenBy> {
@@ -1398,6 +1948,18 @@ extension RecordQuerySortThenBy on QueryBuilder<Record, Record, QSortThenBy> {
   QueryBuilder<Record, Record, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterSortBy> thenByLanguage() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'language', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterSortBy> thenByLanguageDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'language', Sort.desc);
     });
   }
 
@@ -1436,6 +1998,18 @@ extension RecordQuerySortThenBy on QueryBuilder<Record, Record, QSortThenBy> {
       return query.addSortBy(r'title', Sort.desc);
     });
   }
+
+  QueryBuilder<Record, Record, QAfterSortBy> thenByTopicId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'topicId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Record, Record, QAfterSortBy> thenByTopicIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'topicId', Sort.desc);
+    });
+  }
 }
 
 extension RecordQueryWhereDistinct on QueryBuilder<Record, Record, QDistinct> {
@@ -1459,6 +2033,14 @@ extension RecordQueryWhereDistinct on QueryBuilder<Record, Record, QDistinct> {
     });
   }
 
+  QueryBuilder<Record, Record, QDistinct> distinctByLanguage({
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'language', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Record, Record, QDistinct> distinctByLat() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'lat');
@@ -1476,6 +2058,14 @@ extension RecordQueryWhereDistinct on QueryBuilder<Record, Record, QDistinct> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'title', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<Record, Record, QDistinct> distinctByTopicId({
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'topicId', caseSensitive: caseSensitive);
     });
   }
 }
@@ -1506,6 +2096,12 @@ extension RecordQueryProperty on QueryBuilder<Record, Record, QQueryProperty> {
     });
   }
 
+  QueryBuilder<Record, String?, QQueryOperations> languageProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'language');
+    });
+  }
+
   QueryBuilder<Record, double?, QQueryOperations> latProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'lat');
@@ -1521,6 +2117,12 @@ extension RecordQueryProperty on QueryBuilder<Record, Record, QQueryProperty> {
   QueryBuilder<Record, String?, QQueryOperations> titleProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'title');
+    });
+  }
+
+  QueryBuilder<Record, String?, QQueryOperations> topicIdProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'topicId');
     });
   }
 }
