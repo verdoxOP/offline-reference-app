@@ -19,10 +19,19 @@ class DecompressService {
 
   /// Accepts `List<int>` since that's what Isar hands back for a `List<byte>`
   /// field — callers shouldn't have to convert it themselves.
+  ///
+  /// Always returns a Future rather than throwing synchronously — even on
+  /// the inline fast path — so a failure (e.g. a platform missing the
+  /// system zstd library) reaches callers as a rejected Future they can
+  /// handle, the same shape regardless of which path ran.
   Future<Uint8List> decompress(List<int> compressed) {
     final bytes = compressed is Uint8List ? compressed : Uint8List.fromList(compressed);
     if (bytes.length < _isolateThresholdBytes) {
-      return Future.value(ZstdBindings().decompressBytes(bytes));
+      try {
+        return Future.value(ZstdBindings().decompressBytes(bytes));
+      } catch (error, stackTrace) {
+        return Future.error(error, stackTrace);
+      }
     }
     return Isolate.run(() => ZstdBindings().decompressBytes(bytes));
   }
