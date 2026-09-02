@@ -39,7 +39,7 @@ class DnpAppBar extends StatelessWidget implements PreferredSizeWidget {
           constraints: const BoxConstraints(minHeight: DnpLayout.appBarHeight),
           padding: const EdgeInsets.symmetric(horizontal: DnpSpace.s4),
           decoration: BoxDecoration(
-            color: DnpColors.surface1.withOpacity(0.86),
+            color: DnpColors.surface1.withValues(alpha: 0.86),
             border: const Border(bottom: BorderSide(color: DnpColors.borderSubtle)),
           ),
           child: Row(

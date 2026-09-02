@@ -55,7 +55,7 @@ class _MediaHeaderState extends State<MediaHeader> {
     final next = (_scale * factor).clamp(1.0, 8.0);
     if (next == _scale) return;
     setState(() => _scale = next);
-    _controller.value = Matrix4.identity()..scale(next);
+    _controller.value = Matrix4.identity()..scaleByDouble(next, next, next, 1.0);
   }
 
   @override
@@ -172,7 +172,7 @@ class _ZoomButton extends StatelessWidget {
         width: 36,
         height: 36,
         alignment: Alignment.center,
-        color: DnpColors.surface2.withOpacity(0.82),
+        color: DnpColors.surface2.withValues(alpha: 0.82),
         child: Icon(icon, size: 18, color: DnpColors.textPrimary),
       ),
     );
