@@ -33,13 +33,33 @@ class _RecordDetailScreenState extends State<RecordDetailScreen> {
   Widget build(BuildContext context) {
     final record = widget.record;
     final imagePath = record.imageUrls?.isNotEmpty == true ? record.imageUrls!.first : null;
+    // The Tilburg map is large enough to be worth panning/zooming into (real
+    // streets and POIs); regular topic photos don't need that interaction.
+    final isMap = imagePath?.endsWith('kaart_tilburg.jpg') ?? false;
     return Scaffold(
       appBar: AppBar(title: Text(record.title ?? 'No title')),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (imagePath != null)
-            Image.asset(imagePath, height: 200, width: double.infinity, fit: BoxFit.cover)
+            SizedBox(
+              height: isMap ? 320 : 200,
+              width: double.infinity,
+              child: isMap
+                  ? LayoutBuilder(
+                      builder: (context, constraints) => InteractiveViewer(
+                        minScale: 1,
+                        maxScale: 8,
+                        child: Image.asset(
+                          imagePath,
+                          width: constraints.maxWidth,
+                          height: constraints.maxHeight,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : Image.asset(imagePath, fit: BoxFit.cover),
+            )
           else
             Container(
               height: 120,
