@@ -1,10 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../data/db.dart';
 import '../i18n/localization.dart';
 import '../services/decompress_service.dart';
+import '../theme/dnp_colors.dart';
+import '../theme/dnp_spacing.dart';
+import '../theme/dnp_typography.dart';
 import 'category_icons.dart';
+import 'widgets/article_body.dart';
+import 'widgets/category_badge.dart';
+import 'widgets/dnp_app_bar.dart';
+import 'widgets/dnp_button.dart';
+import 'widgets/dnp_spinner.dart';
+import 'widgets/media_header.dart';
 
 class RecordDetailScreen extends StatefulWidget {
   const RecordDetailScreen({super.key, required this.record, required this.language});
@@ -24,9 +35,15 @@ class _RecordDetailScreenState extends State<RecordDetailScreen> {
   void initState() {
     super.initState();
     final payload = widget.record.compressedPayload;
-    _descriptionFuture = payload == null
-        ? null
-        : _decompressService.decompress(payload).then(utf8.decode);
+    _descriptionFuture =
+        payload == null ? null : _decompressService.decompress(payload).then(utf8.decode);
+  }
+
+  Future<void> _call112() async {
+    final uri = Uri(scheme: 'tel', path: '112');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    }
   }
 
   @override
@@ -36,60 +53,76 @@ class _RecordDetailScreenState extends State<RecordDetailScreen> {
     // The Tilburg map is large enough to be worth panning/zooming into (real
     // streets and POIs); regular topic photos don't need that interaction.
     final isMap = imagePath?.endsWith('kaart_tilburg.jpg') ?? false;
+    final isEmergency = categoryKeyForLabel(record.category) == CategoryKey.nood;
+
     return Scaffold(
-      appBar: AppBar(title: Text(record.title ?? 'No title')),
+      backgroundColor: DnpColors.surface1,
+      appBar: DnpAppBar(
+        title: record.title ?? '',
+        subtitle: record.category,
+        language: widget.language,
+        onBack: () => Navigator.of(context).pop(),
+      ),
+      // The map's pan/zoom (InteractiveViewer) needs vertical drag gestures
+      // for itself, so — as in the original screen — the image header stays
+      // outside the scroll region and only the text body scrolls.
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (imagePath != null)
-            SizedBox(
-              height: isMap ? 320 : 200,
-              width: double.infinity,
-              child: isMap
-                  ? LayoutBuilder(
-                      builder: (context, constraints) => InteractiveViewer(
-                        minScale: 1,
-                        maxScale: 8,
-                        child: Image.asset(
-                          imagePath,
-                          width: constraints.maxWidth,
-                          height: constraints.maxHeight,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )
-                  : Image.asset(imagePath, fit: BoxFit.cover),
-            )
-          else
-            Container(
-              height: 120,
-              width: double.infinity,
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
-              child: Icon(iconForCategory(record.category), size: 48),
-            ),
+          MediaHeader(
+            imageAsset: imagePath,
+            category: record.category ?? '',
+            height: isMap ? 320 : 200,
+            interactive: isMap,
+          ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(
+                DnpSpace.s4,
+                DnpSpace.s4,
+                DnpSpace.s4,
+                DnpSpace.s10,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (record.category != null)
-                    Text(record.category!, style: Theme.of(context).textTheme.labelLarge),
-                  const SizedBox(height: 16),
+                  if (record.category != null) CategoryBadge(category: record.category!),
+                  const SizedBox(height: DnpSpace.s4),
+                  Text(
+                    record.title ?? '',
+                    style: DnpType.title.copyWith(color: DnpColors.textPrimary),
+                  ),
+                  const SizedBox(height: DnpSpace.s4),
                   if (_descriptionFuture == null)
-                    Text(Strings.of(widget.language, 'noDetails'))
+                    Text(
+                      Strings.of(widget.language, 'noDetails'),
+                      style: DnpType.body.copyWith(color: DnpColors.textBody),
+                    )
                   else
-                    Expanded(
-                      child: FutureBuilder<String?>(
-                        future: _descriptionFuture,
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return const Center(child: CircularProgressIndicator());
-                          }
-                          return SingleChildScrollView(child: Text(snapshot.data ?? ''));
-                        },
-                      ),
+                    FutureBuilder<String?>(
+                      future: _descriptionFuture,
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: DnpSpace.s6),
+                            child: Center(
+                              child: DnpSpinner(label: Strings.of(widget.language, 'decompressing')),
+                            ),
+                          );
+                        }
+                        return ArticleBody(lead: true, text: snapshot.data ?? '');
+                      },
                     ),
+                  if (isEmergency) ...[
+                    const SizedBox(height: DnpSpace.s4),
+                    DnpButton(
+                      label: Strings.of(widget.language, 'call112'),
+                      variant: DnpButtonVariant.danger,
+                      size: DnpButtonSize.lg,
+                      icon: Icons.call,
+                      fullWidth: true,
+                      onPressed: _call112,
+                    ),
+                  ],
                 ],
               ),
             ),
