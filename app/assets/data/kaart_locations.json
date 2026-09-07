@@ -1,0 +1,66 @@
+[
+  {
+    "id": "hosp-etz-tweesteden",
+    "type": "ziekenhuis",
+    "name": "ETZ TweeSteden Ziekenhuis",
+    "address": "Dr. Deelenlaan 5, Tilburg",
+    "lat": 51.5775147,
+    "lng": 5.0597832
+  },
+  {
+    "id": "pol-tilburg-centrum",
+    "type": "politie",
+    "name": "Politiebureau Tilburg Centrum",
+    "address": "Spoorlaan 300, Tilburg",
+    "lat": 51.5591686,
+    "lng": 5.0827847
+  },
+  {
+    "id": "noodsteun-international-center",
+    "type": "noodsteun",
+    "name": "International Center Tilburg",
+    "address": "Spoorlaan, Tilburg",
+    "lat": 51.5575076,
+    "lng": 5.0870513
+  },
+  {
+    "id": "noodsteun-wijkcentrum-baselaer",
+    "type": "noodsteun",
+    "name": "Wijkcentrum De Baselaer",
+    "address": "Doelenplein, Tilburg",
+    "lat": 51.5705639,
+    "lng": 5.090888
+  },
+  {
+    "id": "noodsteun-mfa-poorten",
+    "type": "noodsteun",
+    "name": "Multifunctioneel Centrum De Poorten",
+    "address": "Wandelbos, Tilburg",
+    "lat": 51.571412,
+    "lng": 5.0737888
+  },
+  {
+    "id": "noodsteun-de-wissel",
+    "type": "noodsteun",
+    "name": "Wijkcentrum De Wissel",
+    "address": "Tilburg Noord",
+    "lat": 51.5612764,
+    "lng": 5.0972047
+  },
+  {
+    "id": "noodsteun-de-back",
+    "type": "noodsteun",
+    "name": "Wijkcentrum De Back",
+    "address": "Tilburg West",
+    "lat": 51.5539949,
+    "lng": 5.0556091
+  },
+  {
+    "id": "noodsteun-mfa-spoor",
+    "type": "noodsteun",
+    "name": "MFA Het Spoor",
+    "address": "Tilburg Noord",
+    "lat": 51.5646622,
+    "lng": 5.0863148
+  }
+]

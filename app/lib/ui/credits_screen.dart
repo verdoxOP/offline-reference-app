@@ -6,7 +6,6 @@ import '../theme/dnp_spacing.dart';
 import '../theme/dnp_typography.dart';
 import 'widgets/article_body.dart';
 import 'widgets/dnp_app_bar.dart';
-import 'widgets/offline_notice.dart';
 
 /// A first pass at the credits screen `assets/images/ATTRIBUTION.md` names
 /// as a required follow-up ("it isn't yet surfaced in the UI") — not a
@@ -34,6 +33,8 @@ class CreditsScreen extends StatelessWidget {
     ('faq-regenwater.jpg', 'Cornellrockey', 'CC BY-SA 4.0'),
     ('faq-info-zonder-internet.jpg', 'Kaldari', 'CC0'),
     ('kaart_tilburg.jpg', 'OpenStreetMap contributors', 'ODbL'),
+    ('assets/tiles (Tilburg, z13-15)', 'OpenStreetMap contributors', 'ODbL'),
+    ('assets/data/kaart_locations.json', 'OpenStreetMap contributors', 'ODbL'),
   ];
 
   @override
@@ -48,12 +49,6 @@ class CreditsScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(DnpSpace.s4),
         children: [
-          OfflineNotice(
-            tone: DnpNoticeTone.info,
-            label: Strings.of(language, 'offline'),
-            detail: Strings.of(language, 'offlineDetail'),
-          ),
-          const SizedBox(height: DnpSpace.s4),
           ArticleBody(text: Strings.of(language, 'creditsIntro')),
           const SizedBox(height: DnpSpace.s4),
           ClipRRect(

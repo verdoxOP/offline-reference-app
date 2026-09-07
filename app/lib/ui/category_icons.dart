@@ -82,8 +82,8 @@ CategoryKey? categoryKeyForLabel(String? category) {
 
 /// Maps a [CategoryKey] back to the category string in the given
 /// [language] — the inverse of [categoryKeyForLabel]. Used to translate a
-/// CategoryTabs filter chip (language-independent key) into the string
-/// stored on `Record.category` before querying Isar.
+/// tab's key (language-independent) into the string stored on
+/// `Record.category` before querying Isar.
 String categoryLabelForKey(CategoryKey key, AppLanguage language) {
   final nl = language == AppLanguage.nl;
   switch (key) {

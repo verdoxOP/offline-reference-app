@@ -12,10 +12,9 @@ dependencies:
   isar_community_flutter_libs: ^3.3.2
   path_provider: ^2.0.0
   path: ^1.9.0
-  flutter_map: ^3.0.0
   ffi: ^2.0.1
   url_launcher: ^6.3.1
-
+  geolocator: ^14.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -30,6 +29,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/data/dataset.isar
+    - assets/data/kaart_locations.json
     - assets/images/
   fonts:
     - family: Archivo

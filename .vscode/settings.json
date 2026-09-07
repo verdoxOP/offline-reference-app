@@ -4,5 +4,12 @@
     "editor.formatOnSave": true
   },
   "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
-  "java.format.settings.profile": "GoogleStyle"
+  "java.format.settings.profile": "GoogleStyle",
+  "dart.analysisExcludedFolders": ["${workspaceFolder}/../flutter sdk"],
+  "files.watcherExclude": {
+    "**/flutter sdk/**": true
+  },
+  "search.exclude": {
+    "**/flutter sdk": true
+  }
 }

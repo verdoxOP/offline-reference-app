@@ -38,3 +38,15 @@ queried via the Overpass API and drawn with Pillow — not a fetched map
 tile. Map data © OpenStreetMap contributors, https://www.openstreetmap.org/copyright,
 available under the Open Database License (ODbL).
 
+## assets/tiles/ and assets/data/kaart_locations.json
+
+The Kaart tab's interactive offline map. `assets/tiles/` holds real OSM
+raster tiles for the Tilburg city centre (zoom 13-15, bbox roughly
+51.535,5.030 to 51.585,5.140), fetched once at packaging time from
+`tile.openstreetmap.org` and bundled with the app — no tile is ever
+fetched at runtime. `kaart_locations.json` holds real hospital/police/
+community-support-point locations for the same area, queried once via the
+Overpass API. Map data © OpenStreetMap contributors,
+https://www.openstreetmap.org/copyright, available under the Open Database
+License (ODbL).
+
