@@ -15,6 +15,7 @@ import 'tabs/topic_tab.dart';
 import 'widgets/dnp_app_bar.dart';
 import 'widgets/language_toggle.dart';
 import 'widgets/pressable.dart';
+import 'tabs/voor_jou_tab.dart';
 import 'widgets/status_banner.dart';
 
 /// The app's main screen: the wireframe's "Overzicht" — a status banner over
@@ -47,7 +48,7 @@ class _AppShellState extends State<AppShell>
     super.initState();
 
     _tabController = TabController(
-      length: CategoryKey.values.length,
+      length: CategoryKey.values.length + 1,
       vsync: this,
     );
 
@@ -253,6 +254,10 @@ class _AppShellState extends State<AppShell>
             child: TabBarView(
               controller: _tabController,
               children: [
+                VoorJouTab(
+                  userDb: widget.userDb,
+                ),
+
                 for (final key in CategoryKey.values)
                   key == CategoryKey.kaart
                       ? KaartTab(
@@ -303,6 +308,16 @@ class _TopTabBar extends StatelessWidget {
           ),
           child: Row(
             children: [
+              Expanded(
+                child: _TabSegment(
+                  label: 'Voor jou',
+                  active: controller.index == 0,
+                  onTap: () {
+                    controller.animateTo(0);
+                  },
+                ),
+              ),
+
               for (final key in CategoryKey.values)
                 Expanded(
                   child: _TabSegment(
@@ -310,9 +325,9 @@ class _TopTabBar extends StatelessWidget {
                       key,
                       language,
                     ),
-                    active: controller.index == key.index,
+                    active: controller.index == key.index + 1,
                     onTap: () {
-                      controller.animateTo(key.index);
+                      controller.animateTo(key.index + 1);
                     },
                   ),
                 ),
